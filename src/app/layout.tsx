@@ -1,6 +1,12 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
+
+const CrispWithNoSSR = dynamic(
+  () => import('@/components/crisp/crisp')
+)
 
 const inter = Inter({
   subsets: ['latin'],
@@ -61,6 +67,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={inter.variable}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <CrispWithNoSSR />
+      </Suspense>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
